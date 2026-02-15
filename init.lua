@@ -528,6 +528,50 @@ require("lazy").setup({
 		end,
 	},
 
+	{
+		"ThePrimeagen/harpoon",
+		config = function()
+			require("telescope").load_extension("harpoon")
+
+			vim.keymap.set(
+				"n",
+				"<C-e>",
+				'<Cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>',
+				{ desc = "Open harpoon list" }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>a",
+				'<Cmd>lua require("harpoon.mark").add_file()<CR>',
+				{ desc = "Mark a file" }
+			)
+			vim.keymap.set(
+				"n",
+				"<A-j>",
+				'<Cmd>lua require("harpoon.ui").nav_file(1)<CR>',
+				{ desc = "Navigate to file 1" }
+			)
+			vim.keymap.set(
+				"n",
+				"<A-k>",
+				'<Cmd>lua require("harpoon.ui").nav_file(2)<CR>',
+				{ desc = "Navigate to file 2" }
+			)
+			vim.keymap.set(
+				"n",
+				"<A-l>",
+				'<Cmd>lua require("harpoon.ui").nav_file(3)<CR>',
+				{ desc = "Navigate to file 3" }
+			)
+			vim.keymap.set(
+				"n",
+				"<A-m>",
+				'<Cmd>lua require("harpoon.ui").nav_file(4)<CR>',
+				{ desc = "Navigate to file 4" }
+			)
+			-- vim.keymap.set("n", "<leader>hh", { desc = "Open harpoon list" })
+		end,
+	},
 	-- LSP Plugins
 	{
 		-- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
@@ -860,7 +904,33 @@ require("lazy").setup({
 			},
 		},
 	},
-
+	{
+		"nvim-java/nvim-java",
+		config = function()
+			require("java").setup({
+				jdk = {
+					auto_install = false,
+					version = "21",
+				},
+			})
+			vim.lsp.enable("jdtls")
+			vim.lsp.config("jdtls", {
+				settings = {
+					java = {
+						configuration = {
+							runtimes = {
+								{
+									name = "JavaSE-21",
+									path = "/home/gmathieu/.sdkman/candidates/java/current",
+									default = true,
+								},
+							},
+						},
+					},
+				},
+			})
+		end,
+	},
 	{ -- Autocompletion
 		"saghen/blink.cmp",
 		event = "VimEnter",
@@ -934,7 +1004,7 @@ require("lazy").setup({
 			completion = {
 				-- By default, you may press `<c-space>` to show the documentation.
 				-- Optionally, set `auto_show = true` to show the documentation after a delay.
-				documentation = { auto_show = false, auto_show_delay_ms = 500 },
+				documentation = { auto_show = true, auto_show_delay_ms = 500 },
 			},
 
 			sources = {
@@ -1111,7 +1181,7 @@ require("lazy").setup({
 	-- require 'kickstart.plugins.indent_line',
 	-- require 'kickstart.plugins.lint',
 	-- require 'kickstart.plugins.autopairs',
-	require("kickstart.plugins.neo-tree"),
+	-- require("kickstart.plugins.neo-tree"),
 	-- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
 	-- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
